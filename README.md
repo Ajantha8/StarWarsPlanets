@@ -1,2 +1,2 @@
-# StarWarsPlanets
-Welcome to the Star Wars Planets Android Application
+# Star Wars Planets
+Welcome to the Star Wars Planets Android Application!
