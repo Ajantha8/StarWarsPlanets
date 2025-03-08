@@ -55,6 +55,9 @@ dependencies {
     // KotlinX Serialization
     implementation(libs.kotlinx.serialization)
 
+    // Gson converter
+    implementation(libs.converter.gson)
+
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.junit)
