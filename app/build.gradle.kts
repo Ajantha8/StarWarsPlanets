@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     id("kotlin-parcelize")
+    alias(libs.plugins.devtools.ksp)
 }
 
 android {
@@ -57,6 +58,10 @@ dependencies {
 
     // Gson converter
     implementation(libs.converter.gson)
+
+    // Room DB
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
     testImplementation(libs.junit)
 
