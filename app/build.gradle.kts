@@ -86,6 +86,12 @@ dependencies {
     // Http client
     implementation(libs.okhttp.logging.interceptor)
 
+    // Google Fonts
+    implementation(libs.google.fonts)
+
+    // Image loading
+    implementation(libs.coil.compose)
+
     testImplementation(libs.junit)
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.coroutines.test)
