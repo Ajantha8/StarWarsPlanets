@@ -92,6 +92,9 @@ dependencies {
     // Image loading
     implementation(libs.coil.compose)
 
+    // Hilt compose navigation
+    implementation(libs.hilt.navigation.compose)
+
     testImplementation(libs.junit)
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.coroutines.test)
