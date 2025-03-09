@@ -19,3 +19,40 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Star Wars Planets classes
+-keep class com.ajantha.starwarsplanets.domain.model.* { *; }
+
+# R8 full mode - GSON
+-keepclassmembers,allowobfuscation class * {
+ @com.google.gson.annotations.SerializedName <fields>;
+}
+-keepattributes Signature
+-keep class com.google.gson.reflect.TypeToken { *; }
+-keep class * extends com.google.gson.reflect.TypeToken
+
+# R8 full mode - Retrofit
+# R8 full mode strips generic signatures from return types if not kept.
+-if interface * { @retrofit2.http.* public *** *(...); }
+-keep,allowoptimization,allowshrinking,allowobfuscation class <3>
+
+# With R8 full mode generic signatures are stripped for classes that are not
+# kept. Suspend functions are wrapped in continuations where the type argument
+# is used.
+-keep,allowobfuscation,allowshrinking class kotlin.coroutines.Continuation
+
+# With R8 full mode generic signatures are stripped for classes that are not kept.
+-keep,allowobfuscation,allowshrinking class retrofit2.Response
+
+# Remove logs
+-assumenosideeffects class android.util.Log {
+  public static *** v(...);
+  public static *** d(...);
+  public static *** i(...);
+  public static *** w(...);
+  public static *** e(...);
+}
+-assumenosideeffects class java.io.PrintStream {
+     public void println(%);
+     public void println(**);
+ }
