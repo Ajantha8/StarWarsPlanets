@@ -95,6 +95,12 @@ dependencies {
     // Hilt compose navigation
     implementation(libs.hilt.navigation.compose)
 
+    // Compose navigation
+    implementation(libs.androidx.navigation.compose)
+
+    // Compose animation
+    implementation(libs.androidx.animation)
+
     testImplementation(libs.junit)
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.coroutines.test)

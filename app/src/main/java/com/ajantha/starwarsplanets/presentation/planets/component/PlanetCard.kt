@@ -1,6 +1,8 @@
 package com.ajantha.starwarsplanets.presentation.planets.component
 
+import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -23,90 +25,113 @@ import androidx.compose.ui.unit.dp
 import com.ajantha.starwarsplanets.R
 import com.ajantha.starwarsplanets.presentation.planets.model.PlanetModel
 import com.ajantha.starwarsplanets.presentation.util.RemoteImage
+import com.ajantha.starwarsplanets.presentation.util.TransitionKeys
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun PlanetCard(
     planet: PlanetModel,
+    sharedTransitionScope: SharedTransitionScope? = null,
+    animatedContentScope: AnimatedContentScope? = null,
     onPlanetClick: () -> Unit
 ) {
-    Card(
-        shape = MaterialTheme.shapes.small,
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 8.dp
-        ),
-        modifier = Modifier.clickable {
-            onPlanetClick()
-        },
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(5 / 2f)
-        ) {
-            RemoteImage(
-                imageUrl = planet.imageUrl,
-                contentDescription = planet.name,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(5 / 2f),
-                width = 300,
-                height = 150,
-                placeholderResId = R.drawable.planet_placeholder
-            )
-            Text(
-                modifier = Modifier
-                    .background(
-                        color = MaterialTheme.colorScheme.tertiary,
-                        shape = RoundedCornerShape(
-                            topStart = 12.dp,
-                            topEnd = 0.dp,
-                            bottomEnd = 12.dp,
-                            bottomStart = 0.dp
-                        )
-                    )
-                    .padding(
-                        horizontal = 8.dp,
-                        vertical = 4.dp
-                    )
-                    .align(Alignment.TopStart),
-                text = planet.name.uppercase(),
-                style = MaterialTheme.typography.titleMedium.copy(
-                    color = MaterialTheme.colorScheme.primary
+    if (sharedTransitionScope != null && animatedContentScope != null) {
+        with(sharedTransitionScope) {
+            Card(
+                shape = MaterialTheme.shapes.small,
+                elevation = CardDefaults.cardElevation(
+                    defaultElevation = 8.dp
                 ),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            Row(
-                modifier = Modifier
-                    .background(
-                        color = MaterialTheme.colorScheme.tertiary,
-                        shape = RoundedCornerShape(
-                            topStart = 12.dp,
-                            topEnd = 0.dp,
-                            bottomEnd = 12.dp,
-                            bottomStart = 0.dp
-                        )
-                    )
-                    .padding(
-                        horizontal = 8.dp,
-                        vertical = 4.dp
-                    )
-                    .align(Alignment.BottomEnd),
-                verticalAlignment = Alignment.CenterVertically
+                modifier = Modifier.clickable {
+                    onPlanetClick()
+                },
             ) {
-                Text(
-                    text = "${stringResource(R.string.climate)} : ",
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        color = MaterialTheme.colorScheme.secondary
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(5 / 2f)
+                ) {
+                    RemoteImage(
+                        imageUrl = planet.imageUrl,
+                        contentDescription = planet.name,
+                        modifier = Modifier
+                            .sharedElement(
+                                sharedContentState = sharedTransitionScope.rememberSharedContentState(key = "${TransitionKeys.KEY_PREFIX_PLANET_IMAGE}${planet.uuid}"),
+                                animatedVisibilityScope = animatedContentScope
+                            )
+                            .fillMaxWidth()
+                            .aspectRatio(5 / 2f),
+                        width = 300,
+                        height = 150,
+                        placeholderResId = R.drawable.planet_placeholder
                     )
-                )
-                Text(
-                    text = planet.climate,
-                    style = MaterialTheme.typography.bodyLarge.copy(
-                        color = MaterialTheme.colorScheme.primary
+                    Text(
+                        modifier = Modifier
+                            .sharedBounds(
+                                sharedContentState = sharedTransitionScope.rememberSharedContentState(key = "${TransitionKeys.KEY_PREFIX_PLANET_NAME}${planet.uuid}"),
+                                animatedVisibilityScope = animatedContentScope
+                            )
+                            .background(
+                                color = MaterialTheme.colorScheme.tertiary,
+                                shape = RoundedCornerShape(
+                                    topStart = 12.dp,
+                                    topEnd = 0.dp,
+                                    bottomEnd = 12.dp,
+                                    bottomStart = 0.dp
+                                )
+                            )
+                            .padding(
+                                horizontal = 8.dp,
+                                vertical = 4.dp
+                            )
+                            .align(Alignment.TopStart),
+                        text = planet.name.uppercase(),
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            color = MaterialTheme.colorScheme.primary
+                        ),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
-                )
+                    Row(
+                        modifier = Modifier
+                            .background(
+                                color = MaterialTheme.colorScheme.tertiary,
+                                shape = RoundedCornerShape(
+                                    topStart = 12.dp,
+                                    topEnd = 0.dp,
+                                    bottomEnd = 12.dp,
+                                    bottomStart = 0.dp
+                                )
+                            )
+                            .padding(
+                                horizontal = 8.dp,
+                                vertical = 4.dp
+                            )
+                            .align(Alignment.BottomEnd),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            modifier = Modifier.sharedElement(
+                                sharedTransitionScope.rememberSharedContentState(key = "climate-text-${planet.uuid}"),
+                                animatedVisibilityScope = animatedContentScope
+                            ),
+                            text = "${stringResource(R.string.climate)} : ",
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                color = MaterialTheme.colorScheme.secondary
+                            )
+                        )
+                        Text(
+                            modifier = Modifier.sharedElement(
+                                sharedTransitionScope.rememberSharedContentState(key = "climate-value-${planet.uuid}"),
+                                animatedVisibilityScope = animatedContentScope
+                            ),
+                            text = planet.climate,
+                            style = MaterialTheme.typography.bodyLarge.copy(
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        )
+                    }
+                }
             }
         }
     }

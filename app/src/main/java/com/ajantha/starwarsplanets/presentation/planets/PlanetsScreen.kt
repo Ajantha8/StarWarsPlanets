@@ -1,6 +1,8 @@
 package com.ajantha.starwarsplanets.presentation.planets
 
+import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,6 +30,8 @@ import com.ajantha.starwarsplanets.presentation.planets.state.PlanetsUiState
 @Composable
 fun PlanetsScreen(
     viewModel: PlanetsViewModel = hiltViewModel(),
+    sharedTransitionScope: SharedTransitionScope? = null,
+    animatedContentScope: AnimatedContentScope? = null,
     onPlanetClick: (planet: PlanetModel) -> Unit
 ) {
     val uiState: PlanetsUiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -82,7 +86,9 @@ fun PlanetsScreen(
                     items = uiState.planets,
                     key = { planet -> planet.uuid }) { planet -> // Use key to prevent unnecessary recomposition
                     PlanetCard(
-                        planet = planet
+                        planet = planet,
+                        sharedTransitionScope = sharedTransitionScope,
+                        animatedContentScope = animatedContentScope
                     ) {
                         onPlanetClick(planet)
                     }
