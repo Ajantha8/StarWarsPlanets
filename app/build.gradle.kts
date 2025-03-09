@@ -103,6 +103,9 @@ dependencies {
     // Compose animation
     implementation(libs.androidx.animation)
 
+    // Splash screen
+    implementation(libs.splashscreen)
+
     testImplementation(libs.junit)
     testImplementation(libs.mockito.kotlin)
     testImplementation(libs.coroutines.test)
