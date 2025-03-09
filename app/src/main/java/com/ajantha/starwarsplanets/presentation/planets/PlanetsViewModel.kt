@@ -7,10 +7,13 @@ import com.ajantha.starwarsplanets.core.resource.DispatcherProvider
 import com.ajantha.starwarsplanets.domain.usecase.GetPlanetsUseCase
 import com.ajantha.starwarsplanets.presentation.planets.state.PlanetsUiState
 import com.ajantha.starwarsplanets.presentation.util.toMessage
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PlanetsViewModel(
+@HiltViewModel
+class PlanetsViewModel @Inject constructor(
     private val getPlanetsUseCase: GetPlanetsUseCase,
     private val dispatcherProvider: DispatcherProvider
 ) : ViewModel() {

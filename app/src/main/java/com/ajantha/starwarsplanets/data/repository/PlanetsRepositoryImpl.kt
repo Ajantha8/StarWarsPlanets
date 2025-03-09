@@ -12,8 +12,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onCompletion
+import javax.inject.Inject
 
-class PlanetsRepositoryImpl(
+class PlanetsRepositoryImpl @Inject constructor(
     private val planetsRemoteDataSource: PlanetsRemoteDataSource,
     private val planetsLocalDataSource: PlanetsLocalDataSource
 ) : PlanetsRepository {

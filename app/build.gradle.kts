@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     id("kotlin-parcelize")
     alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -22,12 +23,24 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://swapi.dev/api/\""
+            ) // Base URL for DEV env
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField(
+                "String",
+                "BASE_URL",
+                "\"https://swapi.dev/api/\""
+            ) // Base URL for PROD env
         }
     }
     compileOptions {
@@ -62,6 +75,16 @@ dependencies {
     // Room DB
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
+
+    // Dependency injection
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+
+    // Http call
+    implementation(libs.retrofit)
+
+    // Http client
+    implementation(libs.okhttp.logging.interceptor)
 
     testImplementation(libs.junit)
     testImplementation(libs.mockito.kotlin)
