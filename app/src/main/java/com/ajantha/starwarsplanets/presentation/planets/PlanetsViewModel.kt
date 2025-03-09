@@ -62,4 +62,12 @@ class PlanetsViewModel @Inject constructor(
         }
     }
 
+    fun resetErrorMessage() {
+        _uiState.update {
+            it.copy(
+                errorMessage = null
+            )
+        }
+    }
+
 }

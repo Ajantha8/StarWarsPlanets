@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Star Wars Planets</string>
+    <string name="climate">Climate</string>
+    <string name="orbital_period">Orbital Period</string>
+    <string name="gravity">Gravity</string>
 </resources>
