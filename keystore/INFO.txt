@@ -1,0 +1,30 @@
+==================================================
+APPLICATION INFO
+==================================================
+Application Name	:	Star Wars Planets
+Application Id		:	com.ajantha.starwarsplanets
+
+==================================================
+KEY STORE INFO
+==================================================
+
+KEY STORE
+--------------------------------------------------
+Password			:	jL2Dgu5AZeh8RkUq
+
+KEY
+--------------------------------------------------
+Alias				:	starwarsplanets
+Password			:	Xd25fCHAJbwUjr4L
+Validity			:	01 Year
+
+CERTIFICATE
+--------------------------------------------------
+First and Last Name	:	Ajantha Wijerathna
+Organizational Unit	:	
+Organizational		:	
+City or Locality	:	Colombo
+State or Province	:	Western Province
+Country Code 		:	0094
+
+==================================================
